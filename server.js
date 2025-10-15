@@ -7,18 +7,21 @@ const app = express();
 
 const PORT = process.env.PORT || 3000;
 
+const authRoute = require('./routes/authRoute');
 const todoRoute = require("./routes/todoRoute");
 const {
   errorMiddleware,
   globalMiddleware,
 } = require("./middlewares/todoMiddleware");
+const { authMiddleware } = require("./middlewares/authMiddleware");
 
 app.use(morgan("dev"));
 app.use(cors());
 
 app.use(express.json());
 app.use(globalMiddleware);
-app.use("/todo", todoRoute);
+app.use("/auth",authRoute);
+app.use("/todo",authMiddleware, todoRoute);
 app.use(errorMiddleware);
 
 const uri =
