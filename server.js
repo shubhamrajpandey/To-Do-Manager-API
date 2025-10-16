@@ -9,6 +9,7 @@ const PORT = process.env.PORT || 3000;
 
 const authRoute = require('./routes/authRoute');
 const todoRoute = require("./routes/todoRoute");
+const adminRoute = require("./routes/adminRoute")
 const {
   errorMiddleware,
   globalMiddleware,
@@ -22,6 +23,7 @@ app.use(express.json());
 app.use(globalMiddleware);
 app.use("/auth",authRoute);
 app.use("/todo",authMiddleware, todoRoute);
+app.use("/admin", authMiddleware, adminRoute);
 app.use(errorMiddleware);
 
 const uri =
